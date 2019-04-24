@@ -50,15 +50,19 @@
   <ItemGroup>
     <Compile Include="EnumerableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="TestEntities\Book.cs" />
+    <Compile Include="TestEntities\IntComparerByStringLength.cs" />
+    <Compile Include="TestEntities\Point.cs" />
+    <Compile Include="TestEntities\StringComparerBySymbolOccurrences.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PseudoEnumerable\PseudoEnumerable.csproj">
       <Project>{ced47320-7ef8-487c-b6cf-507946208b39}</Project>
       <Name>PseudoEnumerable</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
