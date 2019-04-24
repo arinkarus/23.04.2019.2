@@ -8,26 +8,13 @@ namespace PseudoEnumerable.Tests
 {
     public class StringAscByOccurrencesComparer : IComparer<string>
     {
-        /// <summary>
-        /// Symbol for counting occurrences.
-        /// </summary>
         private readonly char symbol;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StringAscByOccurrencesComparer"/> class.
-        /// </summary>
-        /// <param name="symbol">Symbol for counting occurrences.</param>
         public StringAscByOccurrencesComparer(char symbol)
         {
             this.symbol = symbol;
         }
 
-        /// <summary>
-        /// Compares two strings depending on the occurrences of given symbols in strings.
-        /// </summary>
-        /// <param name="x">First string.</param>
-        /// <param name="y">Second string.</param>
-        /// <returns> Returns an integer that indicates their relative position in the sort order.</returns>
         public int Compare(string x, string y)
         {
             if (x == null && y == null)

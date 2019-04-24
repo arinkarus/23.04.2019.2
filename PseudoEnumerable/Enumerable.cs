@@ -5,6 +5,9 @@ using PseudoLINQ;
 
 namespace PseudoEnumerable
 {
+    /// <summary>
+    /// Enumerable extension class.
+    /// </summary>
     public static class Enumerable
     {
         /// <summary>
@@ -20,7 +23,7 @@ namespace PseudoEnumerable
         /// <exception cref="ArgumentNullException">Throws if <paramref name="source"/> is null.</exception>
         /// <exception cref="ArgumentNullException">Throws if <paramref name="predicate"/> is null.</exception>
         public static IEnumerable<TSource> Filter<TSource>(this IEnumerable<TSource> source,
-            Func<TSource,bool> predicate)
+            Func<TSource, bool> predicate)
         {
             CheckOnNull(source);
             CheckOnNull(predicate);
@@ -209,6 +212,24 @@ namespace PseudoEnumerable
             return true;
         }
 
+        public static IEnumerable<int> GenerateNumbers(int start, int count)
+        {
+            if (count <= 0)
+            {
+                throw new ArgumentNullException($"Can't be a negative number: {nameof(count)}");
+            }
+
+            IEnumerable<int> GetNumbers()
+            {
+                for (int i = start; i < start + count; i++)
+                {
+                    yield return i;
+                }
+            }
+
+            return GetNumbers();
+        }
+
         private class ComparerAdapter<TKey, TValue> : IComparer<KeyValuePair<TKey, TValue>>
         {
             private readonly IComparer<TKey> comparer;
@@ -252,7 +273,7 @@ namespace PseudoEnumerable
                 comparer = Comparer<TKey>.Default;
             }
 
-            IComparer <KeyValuePair<TKey, TSource>> keyComparer = new ComparerAdapter<TKey, TSource>(comparer);
+            IComparer<KeyValuePair<TKey, TSource>> keyComparer = new ComparerAdapter<TKey, TSource>(comparer);
             if (!isAscOrdering)
             {
                 keyComparer = new ComparerDesc<TKey, TSource>(keyComparer);

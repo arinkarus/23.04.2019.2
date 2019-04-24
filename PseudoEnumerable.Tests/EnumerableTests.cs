@@ -191,10 +191,10 @@ namespace PseudoEnumerable.Tests
         [Test]
         public void SortBy_KeyIsEmpty_ThrowArgumentNullException() =>
             Assert.Throws<ArgumentNullException>(() => Enumerable.SortBy<int, int>(new int[] { 5, 4 }, null));
-        
+
         [Test]
         public void SortBy_DefaultComparerIsNotFound_ThrowComparerNotFoundException() =>
-             Assert.Throws<ComparerNotFound>(() => Enumerable.SortBy<Book, Book>(new Book[] { } , x => x ));
+             Assert.Throws<ComparerNotFound>(() => Enumerable.SortBy<Book, Book>(new Book[] { }, x => x));
 
         [Test]
         public void SortByDescending_BooksByNameDesc_ReturnSortedBooks()
@@ -267,7 +267,7 @@ namespace PseudoEnumerable.Tests
         #endregion
 
         #region CastTo tests
-       
+
         [TestCase(arg: new object[] { 5, 10, 45 }, ExpectedResult = new int[] { 5, 10, 45 })]
         public IEnumerable<int> CastTo_Objects_ReturnInt(object[] objs)
         {
@@ -280,7 +280,20 @@ namespace PseudoEnumerable.Tests
             var result = Enumerable.CastTo<int>(source);
             Assert.Throws<InvalidCastException>(() => { foreach (var item in result) { } });
         }
-        
+
+        #endregion
+
+        #region Number generator tests
+
+        [Test]
+        public void GenerateNumbers_CountIsNotPositive_ThrowArgumentNullException() =>
+          Assert.Throws<ArgumentNullException>(() => Enumerable.GenerateNumbers(110, 0));
+
+        [TestCase(-1, 3, ExpectedResult = new int[] { -1, 0, 1 })]
+        [TestCase(5, 5, ExpectedResult = new int[] { 5, 6, 7, 8, 9 })]
+        public IEnumerable<int> GenerateNumbers_CountAndLowerBound_ReturnNumbers(int start, int count) =>
+            Enumerable.GenerateNumbers(start, count);
+
         #endregion
     }
 }
